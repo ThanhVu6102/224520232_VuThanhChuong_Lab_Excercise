@@ -58,3 +58,12 @@ export function setupEventDelegation(container) {
     });
   });
 }
+
+// --- 4. RENDER APP ENGINE ---
+export function renderApp(Component, container) {
+  rootComponent = Component;
+  rootContainer = container;
+  resetCursor(); // Reset cursor trước mỗi lần render
+  const vNode = Component();
+  container.replaceChildren(renderToDOM(vNode));
+}

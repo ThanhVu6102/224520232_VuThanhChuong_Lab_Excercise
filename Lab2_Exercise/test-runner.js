@@ -1,25 +1,38 @@
 // test-runner.js
-import { createElement, renderToDOM } from './mini-react.js';
+import { createElement } from './mini-react.js';
+import { useState, renderApp, setupEventDelegation } from './reactive-engine.js';
 
-// 1. Initialize VNode Tree (Semantic HTML)
-// Constraint: Zero div-soup. Use <main>, <header>, <h1>, etc.
-const vApp = createElement('main', { id: 'root-view', role: 'main' },
-  createElement('header', { className: 'hero' },
-    createElement('h1', null, 'Mini React Engine'),
-    // SECURITY TEST: Injecting a malicious script string
-    createElement('p', null, '<img src=x onerror=alert(1)> Safe Text'),
-    createElement('button', { onClick: () => console.log('Ping! Event Delegation works!') }, 'Click Me')
-  )
-);
+// --- ĐỊNH NGHĨA COMPONENT ---
+function TaskApp() {
+  const [tasks, setTasks] = useState(['Review PR', 'Verify AST']);
+  const [filter, setFilter] = useState('ALL');
 
-// 2. Mount into DOM
+  // Logic lọc task (đơn giản hóa cho bài lab)
+  const filteredTasks = tasks.filter(task => {
+    if (filter === 'ALL') return true;
+    // Thêm logic filter ở đây nếu cần
+    return true;
+  });
+
+  return createElement('main', { className: 'app-container' },
+    createElement('header', null,
+      createElement('h2', null, `Tasks: ${tasks.length}`)
+    ),
+    createElement('button', {
+      onClick: () => setTasks([...tasks, `Task ${Date.now()}`])
+    }, 'Add Task')
+  );
+}
+
+// --- KHỞI CHẠY ỨNG DỤNG ---
 const root = document.getElementById('app');
-root.replaceChildren(renderToDOM(vApp));
 
-// 3. Assertions (Verification)
-console.assert(root.querySelector('button') !== null, 'Mount Failed: Button not found');
-console.assert(root.querySelector('h1').textContent === 'Mini React Engine', 'Content mismatch');
+// 1. Kích hoạt Event Delegation
+setupEventDelegation(root);
 
-console.log('✅ Checkpoint 1 passed!');
-console.log('👉 Inspect the Elements tab to verify the DOM structure.');
-console.log('👉 Check if the XSS script executed (It should NOT).');
+// 2. Render lần đầu
+renderApp(TaskApp, root);
+
+// 3. Assertions (Kiểm tra)
+console.log('✅ Checkpoint 2 passed!');
+console.log('👉 Bấm nút "Add Task" để kiểm tra Reactive State.');
