@@ -2,47 +2,62 @@
 
 **Course:** Web Application Development  
 **Lab:** Lab 02 - Modern React Architecture, Virtual DOM & State Machines  
-**Exercise:** In-Class Sprint 1 - Building Mini-React VNode & Mounting Engine  
+**Exercises:** Sprint 1 (Mini-React Engine) & Sprint 2 (Reactive State Machine)  
 **Student Name:** [Your Name]  
 **Student ID:** [Your MSSV]  
 
 ---
 
 ## 1. Objective
-Build a Mini-React engine from scratch, including `createTextElement`, `createElement`, and `renderToDOM`, adhering to strict security, semantic, and engineering constraints.
+- **Sprint 1:** Build a Mini-React engine from scratch (`createElement`, `renderToDOM`), adhering to security and semantic constraints.
+- **Sprint 2:** Build a custom `useState` closure engine and integrate a root Event Delegation hub for a reactive Task Manager application.
 
 ## 2. The 4-Stage AI Decomposition Pipeline
-To prevent monolithic "vibe coding" and ensure deterministic verification, this task is decomposed into the following stages:
-
-- **Stage 1: Functional Slicing** → Break into isolated sub-problems (Contract, Text Node, Element Factory, Renderer, Test).
-- **Stage 2: Contract-First Specification** → Define TypeScript/JavaScript interfaces and VNode structures before writing logic.
-- **Stage 3: Atomic Generation** → Prompt AI for exactly one isolated function at a time (No multi-task prompting).
-- **Stage 4: Independent Verification** → Validate output via manual testing, DevTools, and XSS injection checks.
+- **Stage 1: Functional Slicing** → Break into isolated sub-problems.
+- **Stage 2: Contract-First Specification** → Define interfaces/VNode structures before code.
+- **Stage 3: Atomic Generation** → Prompt AI for exactly one isolated function at a time.
+- **Stage 4: Independent Verification** → Validate via manual testing, DevTools, and XSS injection.
 
 ---
 
 ## 3. Work Breakdown Structure (WBS)
 
-| Task ID | Task Name | Description | Dependencies | Git Commit Message (Atomic) |
-| :--- | :--- | :--- | :--- | :--- |
-| **1.1** | **Define VNode Contracts** | Define `TEXT_ELEMENT` constant and document the POJO structure for `VNode` (`type`, `props`, `children`). | None | `docs(core): define vnode type contracts` |
-| **1.2** | **Implement `createTextElement`** | Create a factory function to normalize primitive values (string/number) into a uniform `TEXT_ELEMENT` VNode. | Task 1.1 | `feat(core): implement createTextElement factory` |
-| **1.3** | **Implement `createElement`** | Create the main VNode factory. Must handle variadic children, flatten nested arrays (`flat(Infinity)`), filter falsy values, and map primitives. | Task 1.2 | `feat(core): implement createElement factory` |
-| **1.4** | **Implement `renderToDOM`** | Create a recursive renderer. Must use `document.createTextNode` for XSS safety, assign attributes safely, and attach event listeners via `addEventListener`. | Task 1.3 | `feat(core): implement renderToDOM` |
-| **1.5** | **Build Test Runner & Verification** | Create `test-runner.js` and `index.html`. Verify semantic HTML, XSS resistance (`<img onerror=alert(1)>`), and event delegation (`console.log('Ping')`). | Task 1.4 | `test(core): add verification test suite` |
+### Sprint 1: Mini-React Engine
+| Task ID | Task Name | Description | Git Commit Message (Atomic) |
+| :--- | :--- | :--- | :--- |
+| **1.1** | **Define VNode Contracts** | Define `TEXT_ELEMENT` constant and POJO structure for `VNode`. | `docs(core): define vnode type contracts` |
+| **1.2** | **Implement `createTextElement`** | Factory to normalize primitives into `TEXT_ELEMENT` VNodes. | `feat(core): implement createTextElement factory` |
+| **1.3** | **Implement `createElement`** | Main VNode factory. Handles variadic children, flattening, filtering. | `feat(core): implement createElement factory` |
+| **1.4** | **Implement `renderToDOM`** | Recursive renderer. Uses `createTextNode` for XSS safety. | `feat(core): implement renderToDOM` |
+
+### Sprint 2: Reactive State Machine & Delegation Hub
+| Task ID | Task Name | Description | Git Commit Message (Atomic) |
+| :--- | :--- | :--- | :--- |
+| **2.1** | **State Store Engine** | Implement `stateStore` array, `cursor` index, and `resetCursor` function. | `feat(state): implement stateStore and resetCursor engine` |
+| **2.2** | **Reactive `useState`** | Implement closure-based `useState` dispatcher with `Object.is` comparison and function updater support. | `feat(state): implement reactive useState dispatcher` |
+| **2.3** | **Event Delegation Hub** | Attach single root listener for `click`, `input`, `keydown`. Traverse `_vnode` for handlers. | `feat(events): attach root event delegation listener` |
+| **2.4** | **UI Assembly** | Assemble `TaskApp` component with dynamic state updates and mount to DOM. | `feat(ui): assemble reactive todo application` |
 
 ---
 
-## 4. Mandatory Constraints Checklist (Slide 15)
+## 4. Mandatory Constraints Checklist
 
-- [ ] **Semantic Constraint:** Output must produce semantic tags (`<main>`, `<header>`, `<h1>`, `<p>`, `<button>`). **Zero div-soup.**
-- [ ] **Security Checkpoint:** Verify XSS resistance when passing `<img src=x onerror=alert(1)> Safe Text` string as a child. (Must render as plain text, no alert popup).
-- [ ] **DevOps Audit:** Inspect Elements panel to ensure DOM nodes match the VNode tree without orphan nodes.
-- [ ] **Deprecation Audit (Slide 3):** 
-  - [ ] NO `var` (use `const`/`let`).
-  - [ ] NO `innerHTML` (use DOM APIs/text nodes).
-  - [ ] NO inline event handlers (`onclick=...`) (use centralized `addEventListener`).
-- [ ] **Git Requirement:** Atomic commits following Conventional Commits specification.
+### Sprint 1 Constraints
+- [ ] **Semantic Constraint:** Output must produce semantic tags. **Zero div-soup.**
+- [ ] **Security Checkpoint:** XSS resistance to `<img src=x onerror=alert(1)>`. Render as plain text.
+- [ ] **DevOps Audit:** DOM nodes match VNode tree without orphan nodes.
+
+### Sprint 2 Constraints
+- [ ] **Zero Orphan Event Listeners:** No `addEventListener` attached to button children. Only root delegation.
+- [ ] **Unidirectional Data Flow:** Props flow down, events flow up.
+- [ ] **Rules of Hooks:** Hooks called at top-level. No `if`/loop wrapping.
+- [ ] **State Immutability:** `setState` checks `Object.is(prev, next)` before re-rendering.
+
+### Global Constraints (Deprecation Audit)
+- [ ] NO `var` (use `const`/`let`).
+- [ ] NO `innerHTML` (use DOM APIs/text nodes).
+- [ ] NO inline event handlers (`onclick=...`) (use centralized `addEventListener`).
+- [ ] Atomic commits following Conventional Commits.
 
 ---
 
@@ -52,5 +67,6 @@ To prevent monolithic "vibe coding" and ensure deterministic verification, this 
 | :--- | :--- | :--- | :--- |
 | **Mount Test** | `document.querySelector('button') !== null` | Button is mounted in DOM. | ✅ Pass |
 | **XSS Test** | `<img src=x onerror=alert(1)>` renders as text. | Rendered as pure text. No alert triggered. | ✅ Pass |
-| **Event Test** | Clicking button logs `Ping! Event Delegation works!` | Logged in Console. | ✅ Pass |
-| **Semantic Test** | No `<div>` tags in the rendered output. | Only `<main>`, `<header>`, `<h1>`, `<p>`, `<button>`. | ✅ Pass |
+| **Sprint 2: Add Task** | Clicking "Add Task" appends a new item to the list. | Task count increases by 1. UI updates. | ✅ Pass |
+| **Sprint 2: Event Delegation** | DevTools Event Listeners shows 1 listener on `#app`, 0 on `<button>`. | Verified via DevTools. | ✅ Pass |
+| **Sprint 2: State Isolation** | Clicking one button does not mutate state of another. | Independent state variables preserved. | ✅ Pass |
