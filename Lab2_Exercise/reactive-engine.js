@@ -36,3 +36,25 @@ export function useState(initialValue) {
   cursor++;
   return [stateStore[currentCursor], setState];
 }
+
+// --- 3. ROOT EVENT DELEGATION HUB ---
+export function setupEventDelegation(container) {
+  const supportedEvents = ['click', 'input', 'keydown'];
+
+  supportedEvents.forEach(eventType => {
+    container.addEventListener(eventType, (nativeEvent) => {
+      let target = nativeEvent.target;
+      // Chuyển đổi 'click' -> 'onClick', 'input' -> 'onInput'
+      const handlerProp = 'on' + eventType.charAt(0).toUpperCase() + eventType.slice(1);
+
+      // Bubbling Protocol: Tìm VNode có chứa handler
+      while (target && target !== container) {
+        if (target._vnode && target._vnode.props[handlerProp]) {
+          target._vnode.props[handlerProp](nativeEvent);
+          break;
+        }
+        target = target.parentElement;
+      }
+    });
+  });
+}

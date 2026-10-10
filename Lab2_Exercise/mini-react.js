@@ -27,6 +27,8 @@ export function renderToDOM(vNode) {
   }
 
   const dom = document.createElement(vNode.type);
+  dom._vnode = vNode; // <--- THÊM DÒNG NÀY để Event Delegation tìm thấy VNode
+
   const { children, nodeValue, ...restProps } = vNode.props;
 
   Object.keys(restProps).forEach((name) => {
