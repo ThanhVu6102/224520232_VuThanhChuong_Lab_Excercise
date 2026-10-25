@@ -1,0 +1,138 @@
+/* ============================================================
+   DeveloperCard.module.css - scoped CSS Modules (zero runtime)
+   Legacy Slide 18 inline style={{ background: '#d0f0c0' }} and
+   Ant Design v4 global imports are REPLACED by CSS Custom
+   Properties scoped to .card.
+   ============================================================ */
+
+.card {
+  /* --- CSS Custom Properties (tokens) --- */
+  --bg-color: #1e1e2f;
+  --text-main: #f8f8f2;
+  --text-muted: #a0a0b8;
+  --accent-color: #50fa7b;
+  --border-color: #44475a;
+
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 400px;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.avatar {
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent-color);
+}
+
+.avatarFallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background-color: var(--accent-color);
+  color: var(--bg-color);
+  font-weight: bold;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+hgroup h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+hgroup p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+/* Key-Value metadata: keyed <Fragment> -> <dt>/<dd> pairs */
+.metrics {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 1rem;
+  margin: 0 0 1.5rem 0;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.metrics dt {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  text-transform: capitalize;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.metrics dd {
+  margin: 0;
+  font-weight: 600;
+  text-align: right;
+}
+
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.skillBadge {
+  background: rgba(80, 250, 123, 0.1);
+  color: var(--accent-color);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  border: 1px solid var(--accent-color);
+}
+
+.tier {
+  opacity: 0.8;
+}
+
+/* ------------------------------------------------------------
+   Responsive Contract (375px)
+   Device Toolbar: iPhone SE 375x667 -> ZERO horizontal scroll.
+   ------------------------------------------------------------ */
+@media (max-width: 375px) {
+  .card {
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .metrics {
+    grid-template-columns: 1fr; /* single column on mobile */
+    gap: 0.25rem;
+  }
+
+  .metrics dd {
+    text-align: left;
+    margin: 0 0 0.5rem 0; /* spacing between key-value pairs */
+  }
+}
