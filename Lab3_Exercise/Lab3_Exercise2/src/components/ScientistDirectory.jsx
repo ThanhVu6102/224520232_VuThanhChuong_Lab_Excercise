@@ -21,7 +21,7 @@ export function ScientistDirectory({ initialData = SMART_PEOPLE }) {
   const [minIq, setMinIq] = useState(160);
   const [sortBy, setSortBy] = useState('iq-desc');
 
-  // 2. PURE DERIVED STATE (Computed in 1 pass during render, ZERO useEffect)
+  // 2. PURE DERIVED STATE (Computed in 1 pass during render, zero effect hooks)
   const visiblePeople = people
     .filter((p) => p.name.toLowerCase().includes(query.trim().toLowerCase()))
     .filter((p) => p.iq >= minIq)
@@ -31,6 +31,18 @@ export function ScientistDirectory({ initialData = SMART_PEOPLE }) {
       if (sortBy === 'age-asc') return a.age - b.age;
       return 0;
     });
+
+  // 3. IMMUTABLE DELETION & RESTORATION
+  const handleDelete = (id) => {
+    setPeople((prev) => prev.filter((p) => p.id !== id));
+  };
+
+  const handleReset = () => {
+    setPeople(initialData);
+    setQuery('');
+    setMinIq(160);
+    setSortBy('iq-desc');
+  };
 
   // Type-safe numeric handler: valueAsNumber keeps minIq a number (never 'string' >= number)
   const handleIqChange = (e) => {
@@ -73,7 +85,14 @@ export function ScientistDirectory({ initialData = SMART_PEOPLE }) {
             <option value="age-asc">Age (Youngest first)</option>
           </select>
         </div>
+
+        <button type="button" onClick={handleReset}>Reset Data</button>
       </form>
+
+      {/* Screen-Reader Live Counter */}
+      <output role="status" aria-live="polite" style={{ display: 'block', marginBottom: '15px', fontWeight: 'bold' }}>
+        Found {visiblePeople.length} pioneers
+      </output>
 
       {/* Data List */}
       <ul style={{ listStyleType: 'none', padding: 0 }}>
@@ -82,9 +101,21 @@ export function ScientistDirectory({ initialData = SMART_PEOPLE }) {
             <span>
               <strong>{p.name}</strong> — IQ: {p.iq} (Age: {p.age})
             </span>
+            <button
+              type="button"
+              onClick={() => handleDelete(p.id)}
+              aria-label={`Delete ${p.name}`}
+              style={{ color: 'red', cursor: 'pointer' }}
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>
+
+      {visiblePeople.length === 0 && (
+        <p style={{ color: 'gray', fontStyle: 'italic' }}>No pioneers match your criteria.</p>
+      )}
     </section>
   );
 }
