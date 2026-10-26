@@ -3,8 +3,8 @@
 **Course:** Web Application Development
 **Lab:** Lab 03 - Modern React 19 Component Architecture (Vite)
 **Exercise:** In-Class Sprint 1 - Semantic Engineer & Pro-Gamer Profile Card
-**Student Name:** Tran Vinh Khiem
-**Student ID:** [Your MSSV]
+**Student Name:** Vu Thanh Chuong
+**Student ID:** 24520232
 **Estimated Time:** 35 - 75 minutes (In-Class Sprint | 35 minutes)
 
 ---
