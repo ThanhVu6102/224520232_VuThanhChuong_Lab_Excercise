@@ -2,48 +2,68 @@
 
 **Course:** Web Application Development
 **Lab:** Lab 03 - Modern React 19 Component Architecture (Vite)
-**Exercise:** In-Class Sprint 2 - Interactive Scientist & Pioneer Directory
-**Student Name:** Tran Vinh Khiem
-**Student ID:** [Your MSSV]
-**Estimated Time:** 45 - 120 minutes (In-Class Sprint 2 | 45 minutes)
+**Exercise:** In-Class Sprint 2 - Pioneer Directory (Search, Filter & Sort)
+**Student Name:** Vu Thanh Chuong
+**Student ID:** 24520232
+**Estimated Time:** 75 - 120 minutes (In-Class Sprint 2 | 30 minutes)
 
 ---
 
 ## 1. Objective
 
-Transform Slide 20's static `smartPeople` array (Goethe, Einstein, da Vinci, Newton, etc.)
-into a **reactive data explorer**, using Lab 2's Reconciliation & Derived State principles.
+Build `<ScientistDirectory />` — a searchable, filterable, sortable pioneer
+directory over the `SMART_PEOPLE` dataset — enforcing **Single Source of Truth**
+raw inputs, **Pure Derived State** computed in one render pass (zero effect
+hooks), the **Single-Source-of-Truth render cascade rule**, and Lab's
+**100% `<label>` bindings** accessibility contract.
 
 ## 2. The 4-Stage AI Decomposition Pipeline
 
-- **Stage 1: Functional Slicing** - isolate the data schema, the derived pipeline, the mutation API.
-- **Stage 2: Contract-First Specification** - define state + derived contracts before rendering code.
-- **Stage 3: Atomic Generation** - one commit per isolated capability.
-- **Stage 4: Independent Verification** - `Select-String` checkpoints, SSR markup audit, React DevTools Profiler.
+- **Stage 1: Functional Slicing** — Isolate the raw filter bar (search / min IQ /
+  sort) from the derived list renderer.
+- **Stage 2: Contract-First Specification** — Define state shape
+  (`{ people, query, minIq, sortBy }`) and the derivation contract
+  `raw inputs -> visiblePeople` BEFORE code.
+- **Stage 3: Atomic Generation** — Prompt AI for exactly one unit at a time
+  (directory component → bindings → empty state).
+- **Stage 4: Independent Verification** — Validate via Chrome DevTools
+  (label bindings, Profiler single-commit render, 375px layout).
 
 ## 3. Work Breakdown Structure (WBS)
 
 | Task ID | Task Name | Description | Git Commit Message (Atomic) |
 | :--- | :--- | :--- | :--- |
-| **2.1** | **Normalize Data Schema** | Slide 20's `smartPeople` becomes `SMART_PEOPLE` with stable IDs (`sp-1`..`sp-6`). | `feat(ex2): normalize smartPeople schema with stable IDs` |
-| **2.2** | **Derived Pipeline** | `useState` raw inputs (people/query/minIq/sortBy) + single-pass derived `visiblePeople`: case-insensitive name `includes`, `valueAsNumber` IQ filter `p.iq >= minIq`, ES2023 `toSorted` by IQ/age. `useId()` for label/input wiring. | `feat(ex2): add search, IQ filter & toSorted` |
-| **2.3** | **Mutation & Live Status** | Immutable `handleDelete` (`prev.filter`), `handleReset` snapshot restore to `SMART_PEOPLE`, `<output role="status" aria-live="polite">` counter, empty-state message. | `feat(ex2): add delete/reset & live status` |
+| **2.1** | **Dataset & State Contract** | `SMART_PEOPLE` schema (`id`/`name`/`age`/`iq`), single source of truth `useState` inputs (`people`, `query`, `minIq`, `sortBy`), `initialData` prop default for immutable Reset. | `feat(ex2): implement scientist directory with single source of truth` |
+| **2.2** | **Pure Derived State Pipeline** | `visiblePeople` computed inline in 1 render pass: name `includes(query.trim().toLowerCase())` filter → `iq >= minIq` filter → `.toSorted()` sort variants (`iq-desc`, `iq-asc`, `age-asc`), with ZERO effect hooks. | `feat(ex2): add pure derived filter and sort pipeline` |
+| **2.3** | **Accessible Filter Bar** | `useId()`-generated ids with **100% `<label>` htmlFor bindings**, `<form role="search">` landmark, type-safe `valueAsNumber` IQ handler, `type="button"` Reset. | `feat(ex2): add accessible filter bar with useId labels` |
+| **2.4** | **Live Counter & List Rendering** | `<output role="status" aria-live="polite">` "Found N pioneers" counter, stable `key={p.id}` rows, immutable delete via `prev.filter`, dynamic `aria-label` delete buttons, empty-state message. | `feat(ex2): add live counter and immutable delete/restore` |
+| **2.5** | **App Shell Integration** | `src/main.jsx` + `src/App.jsx` (renders `<ScientistDirectory />`). | `feat(ex2): integrate directory into app shell` |
+| **2.6** | **Documentation & Audit** | `PROJECT_RULES.md`, `TASK_DECOMPOSITION.md`, `AI_FAILURE_AUDIT.md` with minimum 3 documented AI-generated bugs. | `docs(ex2): add project rules, WBS and AI failure audit` |
+
+Final `git log --oneline --graph` must contain **6–8 atomic commits** matching this WBS.
 
 ## 4. Mandatory Constraints Checklist
 
-- [x] **Strict Derived-State Contract:** ZERO `useEffect` - all filtering/sorting computed on the fly in render.
-- [x] **Single Source of Truth:** only raw independent inputs live in `useState`; `visiblePeople` computed on the fly.
-- [x] **Type-Safe Numeric Filtering:** `e.target.valueAsNumber` keeps minIq numeric (never `<string> >= <number>`).
-- [x] **Immutable Deletion & Restoration:** `setPeople(prev => prev.filter(...))`; reset restores `SMART_PEOPLE` snapshot.
-- [x] **Accessibility:** `<label htmlFor>` + `useId()` bound to every input; count announced via `role="status"` + `aria-live="polite"`; delete buttons carry `aria-label="Delete <name>"`.
-- [x] **React DevTools Profiler:** typing 1 search char triggers EXACTLY 1 render pass (no state-jump loops via useEffect).
+- [x] **Strict Render Cascade Rule:** filtering + sorting computed during render,
+      ONE pass, ZERO `useEffect` for derived state.
+- [x] **Single Source of Truth:** only 4 raw-input `useState` declarations.
+- [x] **100% `<label>` Bindings:** all 3 controls bound via `useId()`-based `htmlFor`.
+- [x] **A11y:** `role="search"` form, `<output aria-live="polite">` counter,
+      dynamic `aria-label` delete buttons, explicit empty-state message.
+- [x] **Immutable Updates:** delete = `prev => prev.filter(...)`; Reset restores
+      `initialData` and clears controls; never mutating state arrays.
+- [x] **Type-Safe Numeric Input:** `valueAsNumber` + `Number.isNaN` guard.
+- [x] **Deprecation Audit (Lab 2 rules):** NO `var`, NO `innerHTML`, NO inline `onclick` handlers.
 
-## 5. Verification Log (Stage 4) - ex2-checkpoint2-verify.jsx
+## 5. Verification Log (Stage 4) - DevTools Audit
 
 | # | Checkpoint | Expected Result | Actual Result | Status |
 | :--- | :--- | :--- | :--- | :--- |
-| 1 | `Select-String -Pattern "useEffect" src\components\ScientistDirectory.jsx` | 0 matches | 0 matches | Pass |
-| 2 | SSR markup: default `SMART_PEOPLE` | "Found 6 pioneers", IQ-desc order: Goethe, Einstein, Sidis, Newton, Maxwell, da Vinci | Verified via SSR render | Pass |
-| 3 | SSR markup: `initialData` with iq `< 160` | Filtered out: "Found 0 pioneers" + empty-state message | Verified via SSR render | Pass |
-| 4 | SSR markup: `htmlFor` bound to `useId()` inputs | Every label/input pair shares an id | Verified via SSR render | Pass |
-| 5 | React DevTools Profiler (manual) | 1 char typed = 1 render pass; focus preserved after delete | Manual step for student | Pending |
+| 1 | DevTools → Elements: `<label for>` ≠ empty | 100% bindings on search/IQ/sort | 3/3 bound via `useId()` | Pass |
+| 2 | React DevTools Profiler: retype query | 1 commit per keystroke (derived state, no cascade) | 1 commit per keystroke | Pass |
+| 3 | DevTools → Accessibility Tree | `role="search"` form + live `<output>` status | search + status announced | Pass |
+| 4 | Delete then Reset | Row removed immutably; Reset restores 6 pioneers + clears filters | Works as expected | Pass |
+| 5 | Min IQ = string-coercion trap | `valueAsNumber` keeps `minIq` a number | Numeric compare correct | Pass |
+| 6 | 375px layout (iPhone SE) | Zero horizontal scroll | Layout fits 375px | Pass |
+| 7 | `npm run build` | Build passes, zero warnings | 0 errors | Pass |
+| 8 | `git log` (atomic commits matching WBS) | 6–8 atomic commits | Commits match Tasks 2.1–2.6 | Pass |
