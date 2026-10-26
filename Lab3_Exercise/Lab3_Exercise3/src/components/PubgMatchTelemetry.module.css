@@ -3,6 +3,28 @@
   font-family: sans-serif;
 }
 
+.selector {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.btn, .activeBtn {
+  padding: 8px 12px;
+  cursor: pointer;
+  border: 1px solid #444;
+  background: #222;
+  color: white;
+  border-radius: 4px;
+}
+
+.activeBtn {
+  background: #f0932b; /* PUBG Orange */
+  color: black;
+  font-weight: bold;
+  border-color: #f0932b;
+}
+
 /* SKELETON UI (220px) — Blue-Zone pulsing loader */
 .skeletonCard {
   width: 100%;
@@ -21,4 +43,30 @@
 @keyframes pulse {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
+}
+
+.successCard {
+  padding: 20px;
+  background: #1e272e;
+  color: white;
+  border-radius: 8px;
+  border-left: 4px solid #0abde3; /* Blue Zone accent */
+}
+
+.errorAlert {
+  padding: 20px;
+  background: #ff3838;
+  color: white;
+  border-radius: 8px;
+}
+
+.retryBtn {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background: white;
+  color: #ff3838;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
 }
