@@ -16,6 +16,7 @@
   background: #222;
   color: white;
   border-radius: 4px;
+  transition: background 0.2s ease-out, color 0.2s ease-out, border-color 0.2s ease-out;
 }
 
 .activeBtn {
@@ -51,6 +52,7 @@
   color: white;
   border-radius: 8px;
   border-left: 4px solid #0abde3; /* Blue Zone accent */
+  animation: fadeIn 0.35s ease-out; /* smooth Skeleton -> Data swap */
 }
 
 .errorAlert {
@@ -58,6 +60,12 @@
   background: #ff3838;
   color: white;
   border-radius: 8px;
+  animation: fadeIn 0.35s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .retryBtn {
