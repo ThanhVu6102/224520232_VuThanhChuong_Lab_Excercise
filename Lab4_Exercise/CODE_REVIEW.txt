@@ -1,0 +1,43 @@
+BÁO CÁO RÀ SOÁT CHẤT LƯỢNG LAB 4
+Ngày: 20/11/2026
+Phạm vi: Exercise 1.1, 1.2 (gồm 1.2.1, 1.2.2), 1.3.
+
+ĐÁNH GIÁ
+Bản đầu chạy được và đáp ứng chức năng chính, nhưng chưa có đủ các kiểm tra để gọi là chất lượng chuyên nghiệp. Sau rà soát, mã đã có kiểm tra hồi quy, xử lý lỗi điều hướng, hỗ trợ focus và một quy trình kiểm tra có thể chạy lại. Phù hợp phạm vi bài lab; chưa đủ bằng chứng để gọi là sẵn sàng production.
+
+LỖI ĐÃ SỬA
+1. Error boundary giữ trạng thái lỗi khi chuyển sang hồ sơ khác. Đã reset theo pathname; test tái hiện trước sửa, đạt sau sửa.
+2. Điều hướng SPA thiếu focus vào nội dung mới và thiếu cập nhật document.title. Đã thêm hook cho DOM focus/title và liên kết bỏ qua điều hướng. Đây là useEffect để đồng bộ DOM, không phải validation waterfall.
+3. ShowData dùng ID cố định, có thể trùng khi tái sử dụng. Đã đổi sang useId; test tái hiện lỗi đạt sau sửa.
+4. Thông báo lỗi form chưa có live region ổn định. Đã giữ role=alert sẵn trong DOM.
+5. Import lazy thừa ở bài 1.2; router provider và dependency thừa ở bài 1.3. Đã bỏ; bản build JavaScript bài 1.3 giảm từ khoảng 259.64 kB xuống 222.73 kB (trước gzip).
+6. Thiếu lint/format gate và kiểm thử tình huống lazy loading thất bại. Đã bổ sung.
+
+SO SÁNH VỚI TIÊU CHÍ MÃ CHUYÊN NGHIỆP
+- Tính đúng đắn: 19 kiểm tra hành vi đạt (8 + 6 + 5). Có kiểm tra lỗi, hồi phục và cross-field validation.
+- Kiến trúc: route lồng nhau, tách component/hook/validation; dữ liệu lỗi form tính đồng bộ, không lưu state trùng.
+- Khả năng bảo trì: ESLint React Hooks/JSX/accessibility, Prettier, lockfile và npm run check cho từng ứng dụng.
+- Accessibility: nhãn/ID liên kết đúng, lỗi có mô tả, focus route, skip link, reduced motion. Không có lỗi axe-core trong các trạng thái đã kiểm tra.
+- Giao diện: Edge thật ở 320px, 375px và 1280px không tràn ngang. Đã xem ảnh mobile và skeleton desktop.
+- Khả năng phục hồi: có 404, boundary, thông báo lỗi tải chunk, nút Reload; chuyển hồ sơ khác phục hồi được sau lỗi render.
+- Hiệu năng: có PersonDetail chunk riêng. Trong tình huống desktop trì hoãn chunk có kiểm soát, loading/content đều cao 360px, cùng vị trí, CLS quan sát = 0.
+- Thư viện: npm audit báo 0 lỗ hổng đã biết trong dependency tree bài 1.1 tại thời điểm chạy.
+
+GIỚI HẠN CÒN LẠI
+- Chưa kiểm tra thủ công bằng NVDA/JAWS/VoiceOver, React DevTools Profiler hoặc các engine Firefox/WebKit.
+- Kết quả axe và CLS áp dụng cho kịch bản đã thử, không chứng nhận WCAG đầy đủ hoặc mọi tình huống.
+- ESLint 9 được giữ do peer dependency của các plugin hiện tại chưa hỗ trợ ESLint 10; lần nâng thử đã bị npm từ chối. Không ép cài dependency không tương thích. Cần nâng đồng bộ khi plugin hỗ trợ.
+- Chưa có CI tự động trên GitHub và chưa kiểm tra cấu hình rewrite URL trên hosting production.
+- Backend, xác thực và homework không thuộc ba exercise này.
+- Không sửa Lab 2/Lab 3. Trạng thái commit của đợt bàn giao tiếp theo được ghi trong GIT_SUBMISSION.md.
+
+CÁCH CHẠY LẠI
+Mở terminal trong mỗi thư mục Lab4_Exercise1, Lab4_Exercise2 hoặc Lab4_Exercise3:
+npm ci
+npm run check
+npm run dev
+
+TÀI LIỆU ĐỐI CHIẾU
+React Error Boundary: https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary
+React effects: https://react.dev/learn/you-might-not-need-an-effect
+ESLint configuration: https://eslint.org/docs/latest/use/configure/configuration-files

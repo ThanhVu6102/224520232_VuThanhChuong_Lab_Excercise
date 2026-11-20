@@ -1,0 +1,73 @@
+[
+  {
+    "exercise": 1,
+    "errors": [],
+    "audits": [
+      {
+        "width": 1280,
+        "overflow": false,
+        "violations": []
+      },
+      {
+        "width": 375,
+        "overflow": false,
+        "violations": []
+      },
+      {
+        "width": 320,
+        "overflow": false,
+        "violations": []
+      }
+    ]
+  },
+  {
+    "exercise": 2,
+    "errors": [],
+    "audits": [
+      {
+        "width": 1280,
+        "overflow": false,
+        "violations": []
+      },
+      {
+        "width": 375,
+        "overflow": false,
+        "violations": []
+      },
+      {
+        "width": 320,
+        "overflow": false,
+        "violations": []
+      }
+    ]
+  },
+  {
+    "exercise": 3,
+    "errors": [],
+    "audits": [
+      {
+        "width": 1280,
+        "overflow": false,
+        "violations": []
+      },
+      {
+        "width": 375,
+        "overflow": false,
+        "violations": []
+      },
+      {
+        "width": 320,
+        "overflow": false,
+        "violations": []
+      }
+    ]
+  },
+  {
+    "lazyLoading": {
+      "loadingHeight": 360,
+      "loadedHeight": 360,
+      "y": 268.65625,
+      "observedCLS": 0
+    }
+  }
+]

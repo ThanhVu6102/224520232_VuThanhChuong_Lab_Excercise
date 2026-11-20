@@ -9,3 +9,7 @@
 Each folder is a standalone Vite React project, matching the Lab3_Exercise structure. Open a project folder and run npm install then npm run dev. See each README and VERIFICATION for scope and checks. Existing Lab 2 and Lab 3 are untouched.
 
 No backend or homework is included; those are later parts of the Lab 4 deck. Submission commit hashes and scope are recorded in GIT_SUBMISSION.md.
+
+## Specification scope
+
+Exercise slides 9–15 and code-contract slides 22–24 define these tasks. Workflow requirements come from slide 8. Slide 3 is excluded as a specification source.
