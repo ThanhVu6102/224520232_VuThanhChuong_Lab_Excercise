@@ -1,6 +1,6 @@
 # Exercise 1.2: React Router v7 master-detail
 
-## Contract
+## Exercise behaviour
 
 Nested /people routes use PeopleLayout, Outlet and useParams. NavLink marks the active person. Invalid IDs and unmatched URLs show explicit 404 UI. A responsive CSS Grid switches to one column below 700px.
 

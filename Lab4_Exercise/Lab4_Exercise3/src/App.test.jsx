@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "./App.jsx";
 import { validateForm, initialValues } from "./validation.js";
-describe("form contract", () => {
+describe("form behaviour", () => {
   it("rejects empty and mismatched fields", () => {
     expect(Object.keys(validateForm(initialValues))).toHaveLength(4);
     expect(
@@ -61,4 +61,23 @@ describe("form contract", () => {
     await user.type(screen.getByLabelText("Password", { exact: true }), "x");
     expect(screen.getByText("Passwords must match.")).toBeTruthy();
   });
+});
+
+it("clears field errors after corrections and keeps the form ready for submission", async () => {
+  render(<App />);
+  const user = userEvent.setup();
+  await user.click(screen.getByRole("button", { name: "Submit" }));
+  await user.type(screen.getByLabelText("Full name"), "Vu Thanh Chuong");
+  await user.type(screen.getByLabelText("Email"), "chuong@example.com");
+  await user.type(
+    screen.getByLabelText("Password", { exact: true }),
+    "password1",
+  );
+  await user.type(screen.getByLabelText("Confirm password"), "password1");
+  for (const name of ["Full name", "Email", "Password", "Confirm password"]) {
+    expect(
+      screen.getByLabelText(name, { exact: true }).getAttribute("aria-invalid"),
+    ).toBe("false");
+  }
+  expect(screen.getByText("Ready to submit.")).toBeTruthy();
 });

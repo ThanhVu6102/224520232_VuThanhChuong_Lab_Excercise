@@ -1,6 +1,6 @@
 # Exercise 1.1: Lazy loading and Suspense
 
-## Contract
+## Exercise behaviour
 
 PersonDetail is dynamically imported at module scope with React.lazy. Suspense displays an accessible skeleton; the shared 360px detail slot reserves the same space for loading and content. An error boundary handles failed chunk loading.
 

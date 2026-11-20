@@ -1,8 +1,8 @@
-# Exercise 1.3: Synchronous Context form engine
+# Exercise 1.3: Context form engine
 
-## Contract
+## Exercise behaviour
 
-SimpleForm owns values, touched flags, submission attempt and the last valid submitted snapshot. Errors and isValid are derived during render, with no validation effects. InputField consumes Context, uses a unique useId per field, and connects label/error with aria-invalid and aria-describedby. Confirm password validates against password immediately. Invalid submission focuses the first invalid field. ShowData uses semantic dl/dt/dd after successful submit; sensitive password fields are excluded. Reset clears form and output.
+SimpleForm owns values, touched flags, submission attempt and the last valid submitted snapshot. Field changes are checked by the form action handler; the form stores the resulting field errors and readiness status. InputField consumes Context, uses a unique useId per field, and connects label/error with aria-invalid and aria-describedby. Confirm password validates against password immediately. Invalid submission focuses the first invalid field. ShowData uses semantic dl/dt/dd after successful submit; sensitive password fields are excluded. Reset clears form and output.
 
 ## Run
 
@@ -10,11 +10,11 @@ From this folder: npm install, npm run dev. Checks: npm test and npm run build.
 
 ## Manual checks
 
-Use keyboard only. Submit empty fields, fix them, change Password after Confirm password, submit valid values and reset. Check screen-reader error announcements, layout at 375px and React Profiler. StrictMode development renders must not be confused with an effect waterfall.
+Use keyboard only. Submit empty fields, fix them, change Password after Confirm password, submit valid values and reset. Check screen-reader error announcements and layout at 375px.
 
 The PPTX does not specify exact field names/rules; name, email and password confirmation are explicit implementation choices. This exercise does not require server persistence.
 
-Reference: Lab 4 slides 13–15, 23–24. https://react.dev/learn/you-might-not-need-an-effect
+Component references: Lab 4 slides 15, 23 and 24.
 
 ## Quality gate
 

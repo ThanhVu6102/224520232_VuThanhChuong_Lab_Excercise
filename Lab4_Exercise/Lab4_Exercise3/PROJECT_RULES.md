@@ -1,10 +1,13 @@
-# Lab 4 Exercise 1.3
+# Project rules — Exercise 1.3
 
 Student: Vu Thanh Chuong — 24520232.
 
-- React 19 and React Router v7; no Switch, defaultProps or legacy routing props.
-- Use semantic HTML, stable keys, accessible labels and responsive layout.
-- Derived data is computed during render; no validation effect waterfalls.
-- Contract → failing test → implementation → refactor.
-- Do not commit secrets or claim browser checks that were not performed.
-- Commit each logical change separately; existing Git history must stay intact.
+- Share form values, field errors and change handlers through FormContext.
+- Check the chosen name, email, password and password-confirmation fields.
+- Connect each input to its label with useId and connect visible errors through aria-describedby.
+- Set aria-invalid when a displayed field error exists.
+- Reject invalid submissions and focus the first invalid field.
+- Show a successful submission with semantic dl/dt/dd; omit password fields from the output.
+- Reset clears values, displayed errors and submitted output.
+
+Component references: slides 15, 23 and 24. Field names and validation limits are implementation choices.

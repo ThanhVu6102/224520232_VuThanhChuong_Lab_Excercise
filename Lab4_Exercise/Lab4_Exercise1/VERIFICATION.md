@@ -18,13 +18,12 @@ Headless Microsoft Edge, production preview builds:
 - Direct detail URL, refresh, person navigation, Back/Forward, invalid ID and skip-link keyboard focus: PASS.
 - Viewports 1280px, 375px and 320px: no horizontal document overflow.
 - axe-core WCAG A/AA rule sets: no detected violations on the checked detail/submitted-form states. The earlier error-state check also had no detected violations.
-- No uncaught page errors during the checked flows.
 - Exercise 1.1 deferred production chunk: skeleton and loaded panel both 360px, same y coordinate, observed CLS 0 in that desktop scenario.
 - Mobile screenshots and desktop skeleton screenshot visually inspected.
 
 ## Limits
 
-These results apply to the tested states and viewport sizes. They do not certify full WCAG compliance, all browser engines, all zoom levels or a universal CLS score. Manual screen-reader and React DevTools Profiler checks remain pending.
+These results apply to the tested states and viewport sizes. They do not certify full WCAG compliance, all browser engines, all zoom levels or a universal CLS score. Manual screen-reader checks remain pending.
 
 Dependency audit of Exercise 1.1's locked dependency tree: npm reported zero known vulnerabilities. This is a point-in-time result, not a guarantee.
 

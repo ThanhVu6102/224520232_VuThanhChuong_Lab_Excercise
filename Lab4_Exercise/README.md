@@ -4,7 +4,7 @@
 | -------------- | ----------------- | ------------------------------------------------------------------------------------ |
 | Lab4_Exercise1 | 1.1               | React.lazy, Suspense, accessible skeleton, reserved layout and chunk error handling  |
 | Lab4_Exercise2 | 1.2, 1.2.1, 1.2.2 | React Router v7, shared layout, master-detail Grid, parameters and 404               |
-| Lab4_Exercise3 | 1.3               | Context form, synchronous validation, accessible fields and submitted-data inspector |
+| Lab4_Exercise3 | 1.3               | Context form, field validation, accessible fields and submitted-data inspector |
 
 Each folder is a standalone Vite React project, matching the Lab3_Exercise structure. Open a project folder and run npm install then npm run dev. See each README and VERIFICATION for scope and checks. Existing Lab 2 and Lab 3 are untouched.
 
@@ -12,4 +12,4 @@ No backend or homework is included; those are later parts of the Lab 4 deck. Sub
 
 ## Specification scope
 
-Exercise slides 9–15 and code-contract slides 22–24 define these tasks. Workflow requirements come from slide 8. Slide 3 is excluded as a specification source.
+Each PROJECT_RULES.md lists only the requirements of that exercise. Slide 3 is excluded. No global development-sequence or render-count policy applies.

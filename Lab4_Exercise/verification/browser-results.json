@@ -1,7 +1,6 @@
 [
   {
     "exercise": 1,
-    "errors": [],
     "audits": [
       {
         "width": 1280,
@@ -22,7 +21,6 @@
   },
   {
     "exercise": 2,
-    "errors": [],
     "audits": [
       {
         "width": 1280,
@@ -43,7 +41,6 @@
   },
   {
     "exercise": 3,
-    "errors": [],
     "audits": [
       {
         "width": 1280,

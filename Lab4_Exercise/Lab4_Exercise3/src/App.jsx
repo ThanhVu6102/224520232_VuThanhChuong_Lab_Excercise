@@ -7,8 +7,8 @@ export default function App() {
         <h1>Context form engine</h1>
         <p>Vu Thanh Chuong · 24520232</p>
         <p>
-          Validation is derived synchronously from current values. Errors appear
-          after leaving a field or submitting.
+          Complete the fields below. Errors appear after leaving a field or
+          submitting.
         </p>
       </header>
       <SimpleForm />

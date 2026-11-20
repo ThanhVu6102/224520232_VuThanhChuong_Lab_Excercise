@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router";
 import App from "./App.jsx";
-describe("directory contract", () => {
+describe("directory behaviour", () => {
   it("opens a deep link", async () => {
     render(
       <MemoryRouter initialEntries={["/people/sp-2"]}>

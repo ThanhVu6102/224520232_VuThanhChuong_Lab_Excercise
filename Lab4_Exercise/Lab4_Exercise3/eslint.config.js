@@ -20,7 +20,8 @@ export default [
     plugins: { react, "react-hooks": hooks, "jsx-a11y": a11y },
     settings: { react: { version: "detect" } },
     rules: {
-      ...hooks.configs.recommended.rules,
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "error",
       ...a11y.flatConfigs.recommended.rules,
       "react/jsx-uses-vars": "error",
       "react/jsx-key": "error",

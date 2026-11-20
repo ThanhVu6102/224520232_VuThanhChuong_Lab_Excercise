@@ -12,3 +12,7 @@ Only observed findings are recorded. No invented historical prompts, fix hashes 
 | No repeatable lint/format gate.                                | Add ESLint, Prettier and npm run check.                                   | All three projects pass the full gate.                                        |
 
 See VERIFICATION.md for scope and limitations. These fixes were made during the assistant review. See Lab4_Exercise/GIT_SUBMISSION.md for the subsequent submission commits.
+
+## Exercise scope correction
+
+The shared PROJECT_RULES template was replaced by rules specific to Exercise 1.2. Shared development-sequence and render-count policies were removed. Lint now enables the two basic Hook usage/dependency checks explicitly rather than the wider preset.

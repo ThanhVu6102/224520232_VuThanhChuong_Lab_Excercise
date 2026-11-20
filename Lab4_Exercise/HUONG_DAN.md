@@ -6,7 +6,7 @@ Ba thư mục con là ba ứng dụng độc lập, giống cách tổ chức La
 
 - Lab4_Exercise1: Exercise 1.1 — lazy loading, Suspense và skeleton.
 - Lab4_Exercise2: Exercise 1.2, 1.2.1, 1.2.2 — router và danh sách–chi tiết.
-- Lab4_Exercise3: Exercise 1.3 — form dùng Context, validation đồng bộ và ShowData.
+- Lab4_Exercise3: Exercise 1.3 — form dùng Context, kiểm tra dữ liệu nhập và ShowData.
 
 Mở terminal tại thư mục bài muốn chạy:
 

@@ -7,17 +7,17 @@ Bản đầu chạy được và đáp ứng chức năng chính, nhưng chưa c
 
 LỖI ĐÃ SỬA
 1. Error boundary giữ trạng thái lỗi khi chuyển sang hồ sơ khác. Đã reset theo pathname; test tái hiện trước sửa, đạt sau sửa.
-2. Điều hướng SPA thiếu focus vào nội dung mới và thiếu cập nhật document.title. Đã thêm hook cho DOM focus/title và liên kết bỏ qua điều hướng. Đây là useEffect để đồng bộ DOM, không phải validation waterfall.
+2. Điều hướng SPA thiếu focus vào nội dung mới và thiếu cập nhật document.title. Đã thêm hook cho DOM focus/title và liên kết bỏ qua điều hướng.
 3. ShowData dùng ID cố định, có thể trùng khi tái sử dụng. Đã đổi sang useId; test tái hiện lỗi đạt sau sửa.
 4. Thông báo lỗi form chưa có live region ổn định. Đã giữ role=alert sẵn trong DOM.
 5. Import lazy thừa ở bài 1.2; router provider và dependency thừa ở bài 1.3. Đã bỏ; bản build JavaScript bài 1.3 giảm từ khoảng 259.64 kB xuống 222.73 kB (trước gzip).
 6. Thiếu lint/format gate và kiểm thử tình huống lazy loading thất bại. Đã bổ sung.
 
 SO SÁNH VỚI TIÊU CHÍ MÃ CHUYÊN NGHIỆP
-- Tính đúng đắn: 19 kiểm tra hành vi đạt (8 + 6 + 5). Có kiểm tra lỗi, hồi phục và cross-field validation.
-- Kiến trúc: route lồng nhau, tách component/hook/validation; dữ liệu lỗi form tính đồng bộ, không lưu state trùng.
+- Tính đúng đắn: 20 kiểm tra hành vi đạt (8 + 6 + 6). Có kiểm tra lỗi, hồi phục và cross-field validation.
+- Kiến trúc: route lồng nhau, tách component/hook/validation; form cập nhật lỗi theo thao tác nhập, submit và reset.
 - Khả năng bảo trì: ESLint React Hooks/JSX/accessibility, Prettier, lockfile và npm run check cho từng ứng dụng.
-- Accessibility: nhãn/ID liên kết đúng, lỗi có mô tả, focus route, skip link, reduced motion. Không có lỗi axe-core trong các trạng thái đã kiểm tra.
+- Accessibility: nhãn/ID liên kết đúng, lỗi có mô tả, focus route, skip link, reduced motion. Kết quả axe-core trước đây áp dụng cho các trạng thái đã kiểm tra.
 - Giao diện: Edge thật ở 320px, 375px và 1280px không tràn ngang. Đã xem ảnh mobile và skeleton desktop.
 - Khả năng phục hồi: có 404, boundary, thông báo lỗi tải chunk, nút Reload; chuyển hồ sơ khác phục hồi được sau lỗi render.
 - Hiệu năng: có PersonDetail chunk riêng. Trong tình huống desktop trì hoãn chunk có kiểm soát, loading/content đều cao 360px, cùng vị trí, CLS quan sát = 0.

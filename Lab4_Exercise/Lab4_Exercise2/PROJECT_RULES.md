@@ -1,10 +1,12 @@
-# Lab 4 Exercise 1.2
+# Project rules — Exercise 1.2
 
 Student: Vu Thanh Chuong — 24520232.
 
-- React 19 and React Router v7; no Switch, defaultProps or legacy routing props.
-- Use semantic HTML, stable keys, accessible labels and responsive layout.
-- Derived data is computed during render; no validation effect waterfalls.
-- Contract → failing test → implementation → refactor.
-- Do not commit secrets or claim browser checks that were not performed.
-- Commit each logical change separately; existing Git history must stay intact.
+- Use React Router v7 Routes and Route with element props.
+- Render nested routes through PeopleLayout and Outlet.
+- Use NavLink to identify the selected person.
+- Read the route ID with useParams and find the matching person.
+- Show a 404 view for an unknown ID or unmatched URL.
+- Use responsive CSS Grid and semantic dl/dt/dd for profile attributes.
+
+Exercise references: slides 10–12 and 22.

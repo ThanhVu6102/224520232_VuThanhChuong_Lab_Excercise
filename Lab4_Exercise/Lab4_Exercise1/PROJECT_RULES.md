@@ -1,10 +1,11 @@
-# Lab 4 Exercise 1.1
+# Project rules — Exercise 1.1
 
 Student: Vu Thanh Chuong — 24520232.
 
-- React 19 and React Router v7; no Switch, defaultProps or legacy routing props.
-- Use semantic HTML, stable keys, accessible labels and responsive layout.
-- Derived data is computed during render; no validation effect waterfalls.
-- Contract → failing test → implementation → refactor.
-- Do not commit secrets or claim browser checks that were not performed.
-- Commit each logical change separately; existing Git history must stay intact.
+- Load PersonDetail through a module-level React.lazy dynamic import.
+- Wrap the detail view in Suspense with a visible loading skeleton.
+- Reserve matching dimensions for the loading and loaded detail panels.
+- Give loading feedback aria-busy and aria-live attributes.
+- Respect reduced-motion preferences and keep the layout usable on small screens.
+
+Exercise reference: slide 9. Routing support belongs to Exercise 1.2.

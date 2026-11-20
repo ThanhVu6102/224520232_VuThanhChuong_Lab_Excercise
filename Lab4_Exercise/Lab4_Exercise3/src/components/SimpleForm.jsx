@@ -1,38 +1,31 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import { FormContext } from "../context/FormContext.js";
-import { initialValues, validateForm } from "../validation.js";
+import { createInitialFormState, formReducer } from "../context/formState.js";
 import InputField from "./InputField.jsx";
 import ShowData from "./ShowData.jsx";
 export default function SimpleForm() {
-  const [values, setValues] = useState(initialValues);
-  const [touched, setTouched] = useState({});
-  const [submitted, setSubmitted] = useState(false);
-  const [data, setData] = useState(null);
-  const errors = validateForm(values);
-  const isValid = Object.keys(errors).length === 0;
+  const [state, dispatch] = useReducer(
+    formReducer,
+    undefined,
+    createInitialFormState,
+  );
+  const { values, errors, isValid, touched, submitted, data } = state;
   function handleChange(event) {
     const { name, value } = event.target;
-    setValues((previous) => ({ ...previous, [name]: value }));
+    dispatch({ type: "change", name, value });
   }
   function handleBlur(name) {
-    setTouched((previous) => ({ ...previous, [name]: true }));
+    dispatch({ type: "blur", name });
   }
   function handleSubmit(event) {
     event.preventDefault();
-    setSubmitted(true);
+    dispatch({ type: "submit" });
     if (!isValid) {
-      event.currentTarget
-        .querySelector('[name="' + Object.keys(errors)[0] + '"]')
-        ?.focus();
-      return;
+      event.currentTarget.elements.namedItem(Object.keys(errors)[0])?.focus();
     }
-    setData({ fullName: values.fullName.trim(), email: values.email.trim() });
   }
   function reset() {
-    setValues({ ...initialValues });
-    setTouched({});
-    setSubmitted(false);
-    setData(null);
+    dispatch({ type: "reset" });
   }
   return (
     <FormContext.Provider
