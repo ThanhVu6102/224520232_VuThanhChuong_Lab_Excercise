@@ -1,7 +1,10 @@
-import { Routes, Route, NavLink } from "react-router";
+import { Routes, Route, NavLink, useLocation } from "react-router";
 import Page from "./components/Page.jsx";
 import PeopleLayout from "./components/PeopleLayout.jsx";
+import RouteErrorBoundary from "./components/RouteErrorBoundary.jsx";
+import PersonDetail from "./components/PersonDetail.jsx";
 export default function App() {
+  const { pathname } = useLocation();
   return (
     <main id="main-content">
       <a className="skip-link" href="#route-heading">
@@ -38,6 +41,14 @@ export default function App() {
               <Page title="Select a person" className="detail-panel">
                 <p>Choose a name from the directory.</p>
               </Page>
+            }
+          />
+          <Route
+            path=":id"
+            element={
+              <RouteErrorBoundary key={pathname}>
+                <PersonDetail />
+              </RouteErrorBoundary>
             }
           />
         </Route>
